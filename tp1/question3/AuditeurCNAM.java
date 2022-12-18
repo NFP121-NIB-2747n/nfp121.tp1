@@ -1,5 +1,7 @@
 package question3;
 
+import java.text.Normalizer;
+
 /**
  * NFP121 TpIntroduction, usage de BlueJ et du "Submitter".
  * 
@@ -45,7 +47,14 @@ public class AuditeurCNAM {
      *         homonymes...
      */
     public String login() {
-        return "";// à compléter
+        String s1;
+        if(nom.length()<= 6){
+            s1 = removeAccents(nom).replaceAll("-", "_");
+        } else{
+        s1 = removeAccents(nom).substring(0,6).replaceAll("-", "_");   
+        }
+        char s2 = removeAccents(prenom).toLowerCase().charAt(0);
+        return s1.toLowerCase() + "_" + s2;
     }
 
     /**
@@ -54,7 +63,7 @@ public class AuditeurCNAM {
      * @return son nom
      */
     public String nom() {
-        return null;// à compléter
+        return nom;// à compléter
     }
 
     /**
@@ -63,7 +72,7 @@ public class AuditeurCNAM {
      * @return son prénom
      */
     public String prenom() {
-        return null;// à compléter
+        return prenom;// à compléter
     }
 
     /**
@@ -72,7 +81,7 @@ public class AuditeurCNAM {
      * @return son matricule
      */
     public String matricule() {
-        return null;// à compléter
+        return matricule;// à compléter
     }
 
     /**
@@ -87,4 +96,10 @@ public class AuditeurCNAM {
         return nom() + " " + prenom() + " login : " + login();
     }
 
+    
+    private static String removeAccents(String sentence){
+        sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
+        sentence = sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return sentence;
+    }
 }
